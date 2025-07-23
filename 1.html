@@ -1,0 +1,475 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>💕 My Heart for You 💕</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;500;600;700&family=Quicksand:wght@300;400;500;600&display=swap');
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Quicksand', sans-serif;
+            background: linear-gradient(45deg, #ffeef0, #fff0f5, #ffe4e6, #fdf2f8);
+            background-size: 400% 400%;
+            animation: gradientShift 15s ease infinite;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            overflow: hidden;
+            cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"><text y="16" font-size="16">💕</text></svg>'), auto;
+        }
+
+        @keyframes gradientShift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        .hearts-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .floating-heart {
+            position: absolute;
+            font-size: 25px;
+            animation: floatUp 18s linear infinite;
+            opacity: 0;
+        }
+
+        @keyframes floatUp {
+            0% {
+                transform: translateY(110vh) rotate(0deg) scale(0.8);
+                opacity: 0;
+            }
+            15% {
+                opacity: 0.6;
+            }
+            50% {
+                opacity: 0.9;
+                transform: translateY(50vh) rotate(180deg) scale(1.1);
+            }
+            85% {
+                opacity: 0.6;
+            }
+            100% {
+                transform: translateY(-10vh) rotate(360deg) scale(0.8);
+                opacity: 0;
+            }
+        }
+
+        .sparkles-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 2;
+        }
+
+        .sparkle {
+            position: absolute;
+            font-size: 15px;
+            animation: sparkle 4s ease-in-out infinite;
+            opacity: 0;
+        }
+
+        @keyframes sparkle {
+            0%, 100% { opacity: 0; transform: scale(0.5) rotate(0deg); }
+            50% { opacity: 1; transform: scale(1.2) rotate(180deg); }
+        }
+
+        .card {
+            background: rgba(255, 255, 255, 0.98);
+            border-radius: 30px;
+            padding: 60px 45px;
+            text-align: center;
+            box-shadow: 
+                0 20px 60px rgba(255, 182, 193, 0.4),
+                0 0 0 1px rgba(255, 192, 203, 0.2);
+            max-width: 500px;
+            width: 100%;
+            position: relative;
+            z-index: 10;
+            backdrop-filter: blur(10px);
+            border: 2px solid rgba(255, 192, 203, 0.3);
+            animation: cardGlow 3s ease-in-out infinite alternate;
+            line-height: 1.6;
+        }
+
+        @keyframes cardGlow {
+            0% { box-shadow: 0 20px 60px rgba(255, 182, 193, 0.4), 0 0 0 1px rgba(255, 192, 203, 0.2); }
+            100% { box-shadow: 0 25px 80px rgba(255, 105, 180, 0.5), 0 0 0 2px rgba(255, 192, 203, 0.4); }
+        }
+
+        .emoji {
+            font-size: 50px;
+            margin-bottom: 25px;
+            cursor: pointer;
+            animation: bounce 2s ease-in-out infinite;
+            transition: all 0.3s ease;
+        }
+
+        .emoji:hover {
+            transform: scale(1.3) rotate(15deg);
+            filter: drop-shadow(0 0 20px rgba(255, 105, 180, 0.8));
+        }
+
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+            40% { transform: translateY(-10px); }
+            60% { transform: translateY(-5px); }
+        }
+
+        .message {
+            font-family: 'Dancing Script', cursive;
+            font-size: 2.4em;
+            background: linear-gradient(45deg, #ff6b9d, #ff8fab, #ffa8cc);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            font-weight: 600;
+            margin-bottom: 25px;
+            text-shadow: 0 2px 10px rgba(255, 105, 180, 0.3);
+            animation: textShimmer 3s ease-in-out infinite;
+            line-height: 1.3;
+        }
+
+        @keyframes textShimmer {
+            0%, 100% { filter: brightness(1); }
+            50% { filter: brightness(1.2); }
+        }
+
+        .response-button {
+            background: linear-gradient(135deg, #ff9bb5, #ff6b9d, #ff4081);
+            color: white;
+            border: none;
+            padding: 18px 40px;
+            font-size: 1.2em;
+            font-weight: 500;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 8px 25px rgba(255, 105, 180, 0.4);
+            position: relative;
+            overflow: hidden;
+            margin: 20px 0;
+        }
+
+        .response-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+            transition: left 0.5s;
+        }
+
+        .response-button:hover::before {
+            left: 100%;
+        }
+
+        .response-button:hover {
+            transform: translateY(-3px) scale(1.05);
+            box-shadow: 0 12px 35px rgba(255, 105, 180, 0.6);
+        }
+
+        .response-button:active {
+            transform: translateY(-1px) scale(0.98);
+        }
+
+        .happy-message {
+            font-family: 'Dancing Script', cursive;
+            font-size: 1.6em;
+            color: #ff6b9d;
+            margin-top: 30px;
+            display: none;
+            animation: happyBounce 0.8s ease-out;
+            font-weight: 600;
+            line-height: 1.4;
+        }
+
+        @keyframes happyBounce {
+            0% { opacity: 0; transform: scale(0.3) translateY(20px); }
+            50% { opacity: 1; transform: scale(1.1) translateY(-10px); }
+            100% { opacity: 1; transform: scale(1) translateY(0); }
+        }
+
+        .love-note {
+            font-size: 1.3em;
+            color: #ff6b9d;
+            margin: 30px 0;
+            font-weight: 500;
+            opacity: 0.9;
+            line-height: 1.4;
+            font-family: 'Dancing Script', cursive;
+        }
+
+        @media (max-width: 480px) {
+            .card {
+                padding: 40px 30px;
+                border-radius: 25px;
+            }
+
+            .message {
+                font-size: 1.8em;
+            }
+
+            .emoji {
+                font-size: 40px;
+            }
+
+            body {
+                cursor: auto;
+            }
+        }
+
+        .kiss-animation {
+            position: absolute;
+            font-size: 30px;
+            pointer-events: none;
+            animation: kissFloat 2s ease-out forwards;
+            z-index: 100;
+        }
+
+        .music-toggle {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: rgba(255, 255, 255, 0.9);
+            border: 2px solid rgba(255, 192, 203, 0.5);
+            border-radius: 50px;
+            padding: 12px 20px;
+            cursor: pointer;
+            font-size: 0.9em;
+            color: #ff6b9d;
+            transition: all 0.3s ease;
+            z-index: 1000;
+            backdrop-filter: blur(10px);
+        }
+
+        .music-toggle:hover {
+            background: rgba(255, 192, 203, 0.2);
+            transform: scale(1.05);
+        }
+
+        @keyframes kissFloat {
+            0% {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+            100% {
+                opacity: 0;
+                transform: translateY(-50px) scale(1.5);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="hearts-container" id="heartsContainer"></div>
+    <div class="sparkles-container" id="sparklesContainer"></div>
+    
+    <div class="music-toggle" id="musicToggle">🎵 Play Music</div>
+    
+    <div class="card">
+        <div class="emoji" id="emoji">💝</div>
+        <div class="message" id="message">I have a crush on you</div>
+        <div class="love-note">Not gonna lie, hanging out with you is kinda lovely 💓</div>
+        <div class="happy-message" id="happyMessage">Cool, Let’s see where this goes. 💕<br>You mean the world to me! ✨</div>
+        <button class="response-button" id="responseButton">Aight, I’m down 💕</button>
+    </div>
+
+    <audio id="lofiAudio" src="https://cdn.pixabay.com/audio/2023/02/10/audio_d4b6ceeb03.mp3" loop></audio>
+
+    <script>
+        document.getElementById('musicToggle').addEventListener('click', toggleMusic);
+
+        function toggleMusic() {
+            const toggle = document.getElementById('musicToggle');
+            const audio = document.getElementById('lofiAudio');
+
+            if (audio.paused) {
+                audio.play();
+                toggle.textContent = '🎵 Pause Music';
+                toggle.style.background = 'rgba(255, 192, 203, 0.3)';
+            } else {
+                audio.pause();
+                toggle.textContent = '🎵 Play Music';
+                toggle.style.background = 'rgba(255, 255, 255, 0.9)';
+            }
+        }
+            // Create main gain node
+            musicGain = audioContext.createGain();
+            musicGain.gain.setValueAtTime(0.1, audioContext.currentTime);
+            musicGain.connect(audioContext.destination);
+
+            // Create a simple ambient pad
+            const createPad = (freq, delay = 0) => {
+                setTimeout(() => {
+                    const osc = audioContext.createOscillator();
+                    const gain = audioContext.createGain();
+                    
+                    osc.type = 'sine';
+                    osc.frequency.setValueAtTime(freq, audioContext.currentTime);
+                    
+                    gain.gain.setValueAtTime(0, audioContext.currentTime);
+                    gain.gain.linearRampToValueAtTime(0.02, audioContext.currentTime + 2);
+                    gain.gain.linearRampToValueAtTime(0.01, audioContext.currentTime + 8);
+                    
+                    osc.connect(gain);
+                    gain.connect(musicGain);
+                    
+                    osc.start();
+                    oscillators.push(osc);
+                    
+                    // Loop the pad
+                    setTimeout(() => {
+                        if (isPlaying) createPad(freq, 0);
+                    }, 8000);
+                }, delay);
+            };
+
+            // Create harmonic pads
+            createPad(220, 0);    // A3
+            createPad(277.18, 1000); // C#4
+            createPad(329.63, 2000); // E4
+            createPad(440, 3000);    // A4
+        }
+
+        function toggleMusic() {
+            const toggle = document.getElementById('musicToggle');
+            
+            if (!isPlaying) {
+                createLofiMusic();
+                isPlaying = true;
+                toggle.textContent = '🎵 Pause Music';
+                toggle.style.background = 'rgba(255, 192, 203, 0.3)';
+            } else {
+                oscillators.forEach(osc => {
+                    try { osc.stop(); } catch(e) {}
+                });
+                oscillators = [];
+                isPlaying = false;
+                toggle.textContent = '🎵 Play Music';
+                toggle.style.background = 'rgba(255, 255, 255, 0.9)';
+            }
+        }
+        // Create floating hearts
+        function createHeart() {
+            const heartsContainer = document.getElementById('heartsContainer');
+            const heart = document.createElement('div');
+            heart.className = 'floating-heart';
+            
+            const heartEmojis = ['💕', '💘', '💝', '🌸', '🌺'];
+            heart.innerHTML = heartEmojis[Math.floor(Math.random() * heartEmojis.length)];
+            
+            heart.style.left = Math.random() * 100 + 'vw';
+            heart.style.fontSize = (Math.random() * 15 + 20) + 'px';
+            heart.style.animationDelay = Math.random() * 2 + 's';
+            
+            heartsContainer.appendChild(heart);
+
+            setTimeout(() => {
+                heart.remove();
+            }, 12000);
+        }
+
+        // Create sparkles
+        function createSparkle() {
+            const sparklesContainer = document.getElementById('sparklesContainer');
+            const sparkle = document.createElement('div');
+            sparkle.className = 'sparkle';
+            sparkle.innerHTML = '✨';
+            
+            sparkle.style.left = Math.random() * 100 + 'vw';
+            sparkle.style.top = Math.random() * 100 + 'vh';
+            sparkle.style.animationDelay = Math.random() * 2 + 's';
+            
+            sparklesContainer.appendChild(sparkle);
+
+            setTimeout(() => {
+                sparkle.remove();
+            }, 4000);
+        }
+
+        // Create kiss animation
+        function createKiss(x, y) {
+            const kiss = document.createElement('div');
+            kiss.className = 'kiss-animation';
+            kiss.innerHTML = '💋';
+            kiss.style.left = x + 'px';
+            kiss.style.top = y + 'px';
+            document.body.appendChild(kiss);
+
+            setTimeout(() => {
+                kiss.remove();
+            }, 2000);
+        }
+
+        // Event listeners
+        document.getElementById('emoji').addEventListener('click', function(e) {
+            const messages = [
+                '...you light up my world 🌟💖',
+                '...you are my everything 💕✨',
+                '...my heart belongs to you 💝🦋',
+                '...you make me believe in fairy tales 🧚‍♀️💫'
+            ];
+            
+            const randomMessage = messages[Math.floor(Math.random() * messages.length)];
+            alert(randomMessage);
+            
+            // Create kiss effect
+            createKiss(e.clientX - 15, e.clientY - 15);
+        });
+
+        document.getElementById('responseButton').addEventListener('click', function() {
+            const happyMessage = document.getElementById('happyMessage');
+            happyMessage.style.display = 'block';
+            
+            // Create celebration hearts
+            for (let i = 0; i < 20; i++) {
+                setTimeout(() => {
+                    createHeart();
+                }, i * 100);
+            }
+            
+            // Create celebration sparkles
+            for (let i = 0; i < 15; i++) {
+                setTimeout(() => {
+                    createSparkle();
+                }, i * 150);
+            }
+        });
+
+        // Start animations
+        setInterval(createHeart, 800);
+        setInterval(createSparkle, 1500);
+
+        // Click anywhere for extra sparkles
+        document.addEventListener('click', function(e) {
+            if (e.target.tagName !== 'BUTTON') {
+                createKiss(e.clientX - 15, e.clientY - 15);
+            }
+        });
+		
+		//music
+		document.getElementById('musicToggle').addEventListener('click', toggleMusic);
+    </script>
+</body>
+</html>
